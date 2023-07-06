@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Encontrar CPFs Válidos</title>
+  <script>
+    function encontrarCPFsValidos1(cpf) {
+      var cpfsValidos = new Set();
+
+      for (var i = 0; i < 11; i++) {
+        for (var j = 0; j <= 9; j++) {
+          var cpfArray = cpf.split('');
+          cpfArray[i] = j.toString();
+
+          var cpfTeste = cpfArray.join('');
+
+          if (validarCPF1(cpfTeste)) {
+            cpfsValidos.add(cpfTeste);
+          }
+        }
+      }
+
+      return Array.from(cpfsValidos);
+    }
+
+    function validarCPF1(cpf) {
+      var soma1 = 0;
+      for (var i = 0; i < 9; i++) {
+        soma1 += parseInt(cpf.charAt(i)) * (10 - i);
+      }
+
+      var resto1 = (soma1 * 10) % 11;
+      if (resto1 === 10) {
+        resto1 = 0;
+      }
+
+      if (resto1 !== parseInt(cpf.charAt(9))) {
+        return false;
+      }
+
+      var soma2 = 0;
+      for (var j = 0; j < 10; j++) {
+        soma2 += parseInt(cpf.charAt(j)) * (11 - j);
+      }
+
+      var resto2 = (soma2 * 10) % 11;
+      if (resto2 === 10) {
+        resto2 = 0;
+      }
+
+      if (resto2 !== parseInt(cpf.charAt(10))) {
+        return false;
+      }
+
+      return true;
+    }
+
+    function encontrarCPFs1() {
+      var cpfInvalido = document.getElementById('cpf1').value;
+      var cpfsValidos = encontrarCPFsValidos1(cpfInvalido);
+      
+      var resultado = document.getElementById('resultado1');
+      resultado.innerHTML = '';
+      
+      if (cpfsValidos.length > 0) {
+        for (var i = 0; i < cpfsValidos.length; i++) {
+          resultado.innerHTML += cpfsValidos[i] + '<br>';
+        }
+      } else {
+        resultado.innerHTML = 'Nenhum CPF válido encontrado.';
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Encontrar CPFs Válidos (1 Dígito Errado)</h1>
+  <label for="cpf1">CPF Inválido:</label>
+  <input type="text" id="cpf1" placeholder="Digite o CPF inválido">
+  <button onclick="encontrarCPFs1()">Verificar</button>
+  <h2>CPFs Válidos:</h2>
+  <div id="resultado1"></div>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Encontrar CPFs Válidos</title>
+  <script>
+    function encontrarCPFsValidos2(cpf) {
+      var cpfsValidos = new Set();
+
+      for (var i = 0; i < 10; i++) {
+        for (var j = 0; j < 10; j++) {
+          var cpfArray = cpf.split('');
+          cpfArray[i] = j.toString();
+
+          for (var k = 0; k < 10; k++) {
+            cpfArray[i + 1] = k.toString();
+
+            var cpfTeste = cpfArray.join('');
+
+            if (validarCPF2(cpfTeste)) {
+              cpfsValidos.add(cpfTeste);
+            }
+          }
+        }
+      }
+
+      return Array.from(cpfsValidos);
+    }
+
+    function validarCPF2(cpf) {
+      var soma1 = 0;
+      for (var i = 0; i < 9; i++) {
+        soma1 += parseInt(cpf.charAt(i)) * (10 - i);
+      }
+
+      var resto1 = (soma1 * 10) % 11;
+      if (resto1 === 10) {
+        resto1 = 0;
+      }
+
+      if (resto1 !== parseInt(cpf.charAt(9))) {
+        return false;
+      }
+
+      var soma2 = 0;
+      for (var j = 0; j < 10; j++) {
+        soma2 += parseInt(cpf.charAt(j)) * (11 - j);
+      }
+
+      var resto2 = (soma2 * 10) % 11;
+      if (resto2 === 10) {
+        resto2 = 0;
+      }
+
+      if (resto2 !== parseInt(cpf.charAt(10))) {
+        return false;
+      }
+
+      return true;
+    }
+
+    function encontrarCPFs2() {
+      var cpfInvalido = document.getElementById('cpf2').value;
+      var cpfsValidos = encontrarCPFsValidos2(cpfInvalido);
+      
+      var resultado = document.getElementById('resultado2');
+      resultado.innerHTML = '';
+      
+      if (cpfsValidos.length > 0) {
+        for (var i = 0; i < cpfsValidos.length; i++) {
+          resultado.innerHTML += cpfsValidos[i] + '<br>';
+        }
+      } else {
+        resultado.innerHTML = 'Nenhum CPF válido encontrado.';
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Encontrar CPFs Válidos (2 Dígitos Errados)</h1>
+  <label for="cpf2">CPF Inválido:</label>
+  <input type="text" id="cpf2" placeholder="Digite o CPF inválido">
+  <button onclick="encontrarCPFs2()">Verificar</button>
+  <h2>CPFs Válidos:</h2>
+  <div id="resultado2"></div>
+</body>
+</html>
+
+
+
